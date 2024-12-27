@@ -1,0 +1,38 @@
+{
+    "name": "kai/l5-swagger",
+    "description": "Swagger Docs for Laravel",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Kai Kun",
+            "email": "chau.ducgiang@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.3 || 8.*",
+        "phpdocumentor/reflection-docblock": "^5.2"
+    },
+    "require-dev": {
+        "laravel/passport": "^10.0"
+    },
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "Kai\\L5Swagger\\": "src/"
+        }
+    },
+    "suggest": {
+        "ext-yaml": "Required to generate YAML"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kai\\L5Swagger\\SwaggerServiceProvider"
+            ]
+        }
+    }
+}
