@@ -26,15 +26,15 @@ class SwaggerServiceProvider extends ServiceProvider {
             ]);
         }
 
-        $source = __DIR__ . '/../config/swagger.php';
+        $source = __DIR__.'/config/swagger.php';
 
         $this->publishes([
             $source => config_path('swagger.php')
         ]);
 
-        $viewsPath = __DIR__ . '/../resources/views';
+        $viewsPath = __DIR__.'/resources/views';
         $this->loadViewsFrom($viewsPath, 'swagger');
-        $translationsPath = __DIR__ . '/../resources/lang';
+        $translationsPath = __DIR__.'/resources/lang';
 
         $this->publishes([
             $viewsPath => config('swagger.views', base_path('resources/views/vendor/swagger')),
