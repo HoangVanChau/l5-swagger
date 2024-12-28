@@ -71,7 +71,7 @@ class BodyParametersGenerator implements ParametersGenerator {
             }
         }
 
-
+        Arr::set($schema, 'type', 'object');
         return [
             'content' =>  [
                 $mediaType  =>  [
