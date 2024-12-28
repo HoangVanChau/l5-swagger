@@ -66,6 +66,9 @@ class BodyParametersGenerator implements ParametersGenerator {
 
         $mediaType = 'application/json'; // or  "application/x-www-form-urlencoded"
         foreach($properties as $prop) {
+            if ($prop['type'] === 'array') {
+                $prop = $prop['items'];
+            }
             if (isset($prop['format']) && $prop['format'] == 'binary') {
                 $mediaType = 'multipart/form-data';
             }
