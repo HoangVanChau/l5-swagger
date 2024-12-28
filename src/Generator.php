@@ -257,12 +257,16 @@ class Generator {
     private function generatePath(DataObjects\Route $route, string $method, ?string $tagFromPrefix): array {
         $actionMethodInstance = $this->getActionMethodInstance($route);
         $documentationBlock = $actionMethodInstance ? ($actionMethodInstance->getDocComment() ?: ''): '';
+        $errorCode = [];
+        $documentation = $this->parseActionDocumentationBlock($documentationBlock, $route->uri(), $errorCode);
 
-        $documentation = $this->parseActionDocumentationBlock($documentationBlock, $route->uri());
+        if (empty(Arr::get($documentation, 'summary'))) {
+            Arr::set($documentation, 'summary', $actionMethodInstance->class . '@' . $actionMethodInstance->name);
+        }
 
         $this->addActionsParameters($documentation, $route, $method, $actionMethodInstance);
 
-        $this->addActionsResponses($documentation);
+        $this->addActionsResponses($documentation, $errorCode);
 
         if ($this->hasSecurityDefinitions) {
             $this->addActionScopes($documentation, $route);
@@ -319,7 +323,7 @@ class Generator {
      * @param string $documentationBlock
      * @return array
      */
-    private function parseActionDocumentationBlock(string $documentationBlock, string $uri): array {
+    private function parseActionDocumentationBlock(string $documentationBlock, string $uri, &$errorCode = []): array {
         $documentation = [
             'summary'       =>  '',
             'description'   =>  '',
@@ -339,6 +343,22 @@ class Generator {
 
             $hasRequest = $parsedComment->hasTag('Request');
             $hasResponse = $parsedComment->hasTag('Response');
+            $hasError = $parsedComment->hasTag('Error');
+
+            if ($hasError) {
+                $firstTag = Arr::first($parsedComment->getTagsByName('Error'));
+                $tagData = $this->parseRawDocumentationTag($firstTag);
+                foreach ($tagData as $row) {
+                    [$key, $value] = array_map(fn(string $value) => trim($value), explode(':', $row));
+                    if ($key === 'responses') {
+                        $value = trim(Str::replaceFirst('[', '' , Str::replaceLast(']', '' , $value)));
+                        $value = array_map(fn(string $string) => trim($string), explode(',', $value));
+                    }
+                    if ($value){
+                        $errorCode = $value;
+                    }
+                }
+            }
 
             if ($hasRequest) {
                 $firstTag = Arr::first($parsedComment->getTagsByName('Request'));
@@ -460,7 +480,7 @@ class Generator {
      * @param string $method
      * @param ReflectionMethod|null $actionInstance
      */
-    private function addActionsResponses(array & $information): void {
+    private function addActionsResponses(array & $information, $errorCode  =[]): void {
 
         if (\count(Arr::get($information, 'responses')) === 0) {
             Arr::set($information, 'responses', [
@@ -471,7 +491,7 @@ class Generator {
         }
 
         foreach ($this->append['responses'] as $code => $response) {
-            if (!Arr::has($information, 'responses.' . $code)) {
+            if (!Arr::has($information, 'responses.' . $code) && in_array($code, $errorCode)) {
                 Arr::set($information, 'responses.' . $code, $response);
             }
         }
