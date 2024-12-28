@@ -70,6 +70,29 @@ return [
      * Append additional data to ALL routes
      */
     'append'                    =>  [
+        'default_response' => [
+            'description' => 'OK',
+            'content' => [
+                'application/json' => [
+                    'schema' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'success' => [
+                                'type' => 'bool',
+                                'example' => true
+                            ],
+                            'message' => [
+                                'type' => 'string'
+                            ],
+                            'data' => [
+                                'type' => 'object',
+                                'properties' => []
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ],
         'responses'             =>  [
             '400'               =>  [
                 'description'   =>  'Bad Request',

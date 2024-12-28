@@ -484,9 +484,7 @@ class Generator {
 
         if (\count(Arr::get($information, 'responses')) === 0) {
             Arr::set($information, 'responses', [
-                '200' => [
-                    'description' => 'OK',
-                ]
+                '200' => $this->fromConfig('append.default_response')
             ]);
         }
 
