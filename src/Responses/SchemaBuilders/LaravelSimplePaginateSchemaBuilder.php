@@ -1,4 +1,6 @@
-<?php namespace Kai\L5Swagger\Responses\SchemaBuilders;
+<?php
+
+namespace Kai\L5Swagger\Responses\SchemaBuilders;
 
 use Illuminate\Support\Str;
 use Kai\L5Swagger\Responses\SchemaBuilder;
@@ -13,11 +15,12 @@ class LaravelSimplePaginateSchemaBuilder implements SchemaBuilder {
     /**
      * Build a schema for Laravel simple pagination
      *
-     * @param string $modelRef the swagger reference for model
-     * @param string $uri the current parsing uri
+     * @param  string|null  $modelRef  the swagger reference for model
+     * @param  string|null  $uri  the current parsing uri
+     *
      * @return array
      */
-    public function build(string $modelRef, string $uri): array {
+    public function build(string $modelRef =  null, string $uri =  null): array {
         if (!Str::startsWith($uri, '/')) {
             $uri = '/' . $uri;
         }

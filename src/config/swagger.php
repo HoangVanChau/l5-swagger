@@ -84,6 +84,9 @@ return [
                                 ],
                                 'message' => [
                                     'type' => 'string',
+                                ],
+                                'error_code' => [
+                                    'type' => 'string',
                                 ]
                             ]
                         ]
@@ -258,6 +261,8 @@ return [
     'schema_builders'            => [
         'P' => \Kai\L5Swagger\Responses\SchemaBuilders\LaravelPaginateSchemaBuilder::class,
         'SP' => \Kai\L5Swagger\Responses\SchemaBuilders\LaravelSimplePaginateSchemaBuilder::class,
+        'AP' => \Kai\L5Swagger\Responses\SchemaBuilders\LaravelApiPaginateSchemaBuilder::class,
+        'AS' => \Kai\L5Swagger\Responses\SchemaBuilders\LaravelApiSingleSchemaBuilder::class,
     ]
 
 ];

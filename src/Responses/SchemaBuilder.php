@@ -8,10 +8,12 @@ interface SchemaBuilder {
 
     /**
      * Build and return a custom swagger schema
-     * @param string $modelRef a model swagger ref, (ex: #/components/schemas/User)
-     * @param string $uri a current parsing uri
-     * @return array an associative array representing the swagger schema for this resposne
+     *
+     * @param  string|null  $modelRef  a model swagger ref, (ex: #/components/schemas/User)
+     * @param  string|null  $uri  a current parsing uri
+     *
+     * @return array an associative array representing the swagger schema for this response
      */
-    public function build(string $modelRef, string $uri): array;
+    public function build(string $modelRef = null, string $uri = null): array;
 
 }
