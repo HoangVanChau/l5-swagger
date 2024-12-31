@@ -9,10 +9,10 @@ use Kai\L5Swagger\Commands\GenerateSwaggerDocumentation;
 use Kai\L5Swagger\Commands\MakeSwaggerSchemaBuilder;
 
 /**
- * Class SwaggerServiceProvider
+ * Class L5SwaggerServiceProvider
  * @package Kai\L5Swagger
  */
-class SwaggerServiceProvider extends ServiceProvider {
+class L5SwaggerServiceProvider extends ServiceProvider {
 
     /**
      * @inheritDoc
