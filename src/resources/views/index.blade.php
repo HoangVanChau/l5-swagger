@@ -26,10 +26,43 @@
                 margin:0;
                 background: #fafafa;
             }
+
+            .btn.btn-secondary.theme-btn {
+              width: 60px;
+              height: 60px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 50%;
+              background: #4CAF50;
+              color: white;
+              border: none;
+              box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+              cursor: pointer;
+              transition: background 0.3s ease, box-shadow 0.3s ease;
+              z-index: 999;
+              position: fixed;
+              top: 70px;
+              right: 10px;
+            }
+
+            .btn.btn-secondary.theme-btn img {
+              width: 24px;
+              height: 24px;
+              pointer-events: none;
+            }
+
+            .btn.btn-secondary.theme-btn:hover {
+              background: #45a049;
+              box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
+            }
         </style>
     </head>
 
     <body>
+        <a type="button" href="{{ route('l5-swagger.download') }}" class="btn btn-secondary theme-btn">
+            <img src="https://img.icons8.com/ios/50/000000/download.png" alt="download"/>
+        </a>
         <div id="swagger-ui"></div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.18.2/swagger-ui-bundle.js" crossorigin="anonymous" charset="UTF-8"></script>

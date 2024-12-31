@@ -8,5 +8,6 @@ if (Config::get('swagger.enable', true)) {
     Route::prefix(config('swagger.path', '/docs'))->group(static function() {
         Route::get('', [SwaggerController::class, 'api']);
         Route::get('content', [SwaggerController::class, 'documentation']);
+        Route::get('download', [SwaggerController::class, 'download'])->name('l5-swagger.download');
     });
 }

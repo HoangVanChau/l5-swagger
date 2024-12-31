@@ -80,4 +80,18 @@ class SwaggerController extends BaseController {
         ]), 200);
     }
 
+    /**
+     * Return documentation content
+     * @param Request $request
+     * @return Response
+     * @throws ExtensionNotLoaded|InvalidFormatException|InvalidAuthenticationFlow
+     */
+    public function download(Request $request): Response {
+        $fileContent = $this->documentation($request)->getContent();
+        $fileName = 'swagger_' . time() .'.' . (Str::endsWith('yaml', pathinfo(swagger_resolve_documentation_file_path(), PATHINFO_EXTENSION)) ? 'yaml' : 'json');
+        return ResponseFacade::make($fileContent, 200, [
+            'Content-Type' => 'application/json',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
+    }
 }
